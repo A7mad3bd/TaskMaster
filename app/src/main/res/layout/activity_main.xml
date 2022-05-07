@@ -7,6 +7,42 @@
     tools:context=".MainActivity">
 
 
+    <Button
+        android:id="@+id/Task2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="608dp"
+        android:background="@color/teal_200"
+        android:text="Task2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Task1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="608dp"
+        android:background="@color/teal_200"
+        android:text="Task1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="488dp"
+        android:background="@color/teal_200"
+        android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="222dp"
@@ -22,38 +58,52 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="365dp"
-        android:layout_height="335dp"
+        android:layout_width="298dp"
+        android:layout_height="268dp"
         android:layout_marginTop="196dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/__8ygfkyb0yo6hc_vnscga9a"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="23dp" />
+        tools:ignore="MissingConstraints" />
+
+    <!--    app:layout_constraintBottom_toTopOf="@+id/greeting_text"-->
 
     <Button
         android:id="@+id/AllTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="488dp"
         android:background="@color/teal_200"
         android:text="All Tasks"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.804"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    app:layout_constraintBottom_toTopOf="@+id/greeting_text"-->
     <Button
         android:id="@+id/ADDTASK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="488dp"
         android:background="@color/teal_200"
         android:text="Add Task"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="544dp"
+        android:text=""
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

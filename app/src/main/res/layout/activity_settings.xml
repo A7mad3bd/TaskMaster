@@ -7,7 +7,7 @@
     tools:context=".Settings">
 
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/Write_your_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

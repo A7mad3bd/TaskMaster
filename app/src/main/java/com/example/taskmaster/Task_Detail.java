@@ -3,13 +3,15 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.taskmaster.Recyclerview.ViewAdapter;
+
 
 public class Task_Detail extends AppCompatActivity {
+
+
+    private static final String TAG = "......";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,27 +25,19 @@ public class Task_Detail extends AppCompatActivity {
 
     public void getData() {
 
+        Intent intent1 = getIntent();
+        String title =intent1.getStringExtra("title");
+        String body =intent1.getStringExtra("body");
+        String state =intent1.getStringExtra("state");
 
         TextView Task_Title__String = findViewById(R.id.Task_name);
+        TextView Task_Body_String = findViewById(R.id.Task_Body);
+        TextView Task_State_String = findViewById(R.id.Task_State);
+        Task_Title__String.setText(title);
+        Task_Body_String.setText(body);
+        Task_State_String.setText(state);
 
-        String Tasktitle = getIntent().getExtras().get("title").toString();
-        Task_Title__String.setText(Tasktitle);
 
 
-
-        //     Intent intent = getIntent();
-        //        TextView Task_Body_String = findViewById(R.id.Task_Body);
-//        TextView Task_State_String = findViewById(R.id.Task_State);
-//        if (intent != null) {
-//            String Tasktitle = getIntent().getExtras().get("title").toString();
-//            Task_Title__String.setText(Tasktitle);
-//
-//            String Taskbody = getIntent().getExtras().get("body").toString();
-//            Task_Body_String.setText(Taskbody);
-//
-//            String Taskstate = getIntent().getExtras().get("state").toString();
-//            Task_State_String.setText(Taskstate);
-//
-//        }
     }
 }

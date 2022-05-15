@@ -7,20 +7,56 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.taskmaster.DB.AppDB;
+import com.example.taskmaster.Recyclerview.Task;
+
+import java.util.List;
 
 public class AddingTask extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        List<Task> TasklistDB;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_task);
         Button addTask = findViewById(R.id.ADDTASKA);
+        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
+
         addTask.setOnClickListener(v -> {
-            Toast.makeText(this, "submitted", Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "submitted", Toast.LENGTH_SHORT).show();
+        });
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                EditText Task_name = findViewById(R.id.Tasknamee);
+                String Taskname = Task_name.getText().toString();
+
+                EditText Task_body = findViewById(R.id.Taskbodyy);
+                String Taskbody = Task_body.getText().toString();
+
+                Spinner Task_Stast = findViewById(R.id.TaskStatee);
+                String TaskStast = Task_Stast.getSelectedItem().toString();
+
+                Task task = new Task(Taskname,Taskbody,TaskStast);
+
+                Long newTaskId = AppDB.getInstance(getApplicationContext()).taskDao().insertTask(task);
+                TasklistDB.add(task);
+//                System.out.println("******************** Task ID = " + newTaskId + " ************************");
+                startActivity(new Intent(getApplicationContext() , MainActivity.class));
+
+            }
         });
     }
+
 
 
     @Override

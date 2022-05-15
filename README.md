@@ -15,3 +15,9 @@
 - Task details page ->  title for the page and a body and state.
 - Task Model  & ViewAdapter
 - setting page -> SharedPreferences active
+# Lab 29
+![Lab 29](screenshots/lab29.jpg)
+- create local DB
+- Task model and DAO 
+- Add Task page -> add sppiner and active adding task to db
+- Task details page ->  title for the page and a body and state from the db

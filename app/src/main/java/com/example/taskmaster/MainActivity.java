@@ -2,9 +2,9 @@ package com.example.taskmaster;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,47 +16,52 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.taskmaster.DB.AppDB;
 import com.example.taskmaster.Recyclerview.ViewAdapter;
 import com.example.taskmaster.Recyclerview.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private Button button, button1, button2, button0;
+    private Button button, button1, button2, button3, button4;
     private TextView mUsernameText;
     RecyclerView rrecyclerview;
-    List<Task> Tasklist ;
+    List<Task> Tasklist;
     ViewAdapter myadapter;
     SharedPreferences sharedpreferencesmain;
+    List<Task> TasklistDB;
 
-//    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        button = (Button) findViewById(R.id.ADDTASK);
         mUsernameText = (TextView) findViewById(R.id.username);
+        rrecyclerview = findViewById(R.id.rere);
+        button1 = (Button) findViewById(R.id.AllTasks);
+        button2 = (Button) findViewById(R.id.Settings);
+        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
+
+
+        SetUserName();
+        AddTakInfo();
+        SetAdapter();
+        OnclistButtons();
+
+
+        Log.i(TAG, "onCreate: Called");
+    }
+
+    private void SetUserName() {
         sharedpreferencesmain = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
         String usernamemain = sharedpreferencesmain.getString("username", "");
         mUsernameText.setText(usernamemain);
-        rrecyclerview = findViewById(R.id.rere);
-        rrecyclerview.setLayoutManager(new LinearLayoutManager(this));
-        myadapter = new ViewAdapter(MainActivity.this, Tasklist);
-//        Tasklist = new ArrayList<>();
-        AddTakInfo();
+    }
 
-        SetAdapter();
-
-        Log.i(TAG, "onCreate: Called");
-
-
-        button = (Button) findViewById(R.id.ADDTASK);
+    private void OnclistButtons() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        button1 = (Button) findViewById(R.id.AllTasks);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button2 = (Button) findViewById(R.id.Settings);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        Button Task1 = findViewById(R.id.Task1);
-//        Task1.setOnClickListener(new View.OnClickListener() {
+//        button3.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Intent Task1 = new Intent(MainActivity.this, Task_Detail.class);
@@ -91,9 +93,8 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(Task1);
 //            }
 //        });
-
-//        Button Task2 = findViewById(R.id.Task2);
-//        Task2.setOnClickListener(new View.OnClickListener() {
+//
+//        button4.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Intent Task2 = new Intent(MainActivity.this, Task_Detail.class);
@@ -101,29 +102,21 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(Task2);
 //            }
 //        });
-
-
-
     }
 
     private void AddTakInfo() {
-        Tasklist=new ArrayList<>();
-        Task taskel=new Task("1", "Task 26 ", "complete");
-        Tasklist.add(taskel);
-        Task taskel1=new Task("2", "Task 27 ", "complete");
-        Tasklist.add(taskel1);
-        Tasklist.add(new Task("3", "Task 28 ", "complete"));
-        Log.d(TAG, "AddTakInfo: "+Tasklist);
-//        Tasklist.add(new Task())
-//        Tasklist.add(new Task("2", "Task 27 ", "in progress"));
 
-// assigned
-// in progress
-// complete
+        TasklistDB.add(new Task("one", "Task 26 ", "complete"));
+        TasklistDB.add(new Task("two", "Task 27 ", "complete"));
+        TasklistDB.add(new Task("3", "Task 28 ", "in progress"));
+        TasklistDB.add(new Task("4", "Task 29 ", "in progress"));
+
     }
 
     private void SetAdapter() {
-        ViewAdapter RecyclerView = new ViewAdapter(Tasklist, new ViewAdapter.MyOnClickListener() {
+
+
+        ViewAdapter customRecyclerView = new ViewAdapter(TasklistDB, new ViewAdapter.MyOnClickListener() {
             @Override
             public void onClicked(Task task) {
 //                Log.d(TAG, "onClicked: "+task.getId());
@@ -136,13 +129,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(taskDetailActivity);
             }
         });
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rrecyclerview.setLayoutManager(layoutManager);
-        rrecyclerview.setItemAnimator(new DefaultItemAnimator());
-        rrecyclerview.setAdapter(RecyclerView);
+
+        rrecyclerview.setAdapter(customRecyclerView);
+        rrecyclerview.setHasFixedSize(true);
+        rrecyclerview.setLayoutManager(new
+                LinearLayoutManager(this));
 
     }
-
 
 
     public void openActivity1() {
@@ -227,14 +220,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Log.i(TAG, "onResume: called - The App is VISIBLE");
+
+        super.onResume();
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause: called");
-        System.out.println(Tasklist);
-
         super.onPause();
 
     }
@@ -250,4 +243,5 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onDestroy: called");
         super.onDestroy();
     }
+
 }

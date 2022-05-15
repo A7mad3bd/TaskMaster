@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,56 +31,27 @@ public class Settings extends AppCompatActivity {
     private static final String TAG = Settings.class.getSimpleName();
     public static final String USERNAME = "UserName";
     private EditText mUsernameEditText;
+    Button btnSubmit;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        sharedPreferences = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
         mUsernameEditText = findViewById(R.id.Write_your_username);
-        Button btnSubmit = findViewById(R.id.btn_submit);
-
-        Button button = findViewById(R.id.btn_submit);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                TextInputEditText textInputEditText = findViewById(R.id.Write_your_username);
-//                String username = textInputEditText.getText().toString();
-//
-//                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Settings.this);
-//
-//                SharedPreferences.Editor share = sharedPreferences.edit();
-//                share.putString("username",username);
-//                share.apply();
-//
-//                Toast.makeText(Settings.this,username,Toast.LENGTH_LONG).show();
-//                Intent Addusername= new Intent(Settings.this,MainActivity.class);
-//                startActivity(Addusername);
-//            }
-//        });
-
-
-
-
-
+        btnSubmit = findViewById(R.id.btn_submit);
 
         btnSubmit.setOnClickListener(view -> {
             Log.i(TAG, "Save button clicked");
 
-            TextInputEditText textInputEditText = findViewById(R.id.Write_your_username);
-            String username = textInputEditText.getText().toString();
 
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Settings.this);
-
-            SharedPreferences.Editor share = sharedPreferences.edit();
-            share.putString("username",username);
-            share.apply();
-            // make sure the mUsernameEditText is greater than 10 characters
-            if (mUsernameEditText.getText().toString().length() >= 10) {
+//            // make sure the mUsernameEditText is greater than 10 characters
+            if (mUsernameEditText.getText().toString().length() >= 4 && mUsernameEditText.getText().toString().length() <= 10) {
                 saveUsername();
             } else {
-                Toast.makeText(this, "Add a longer Username", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Add a Username lenth 4-10", Toast.LENGTH_SHORT).show();
             }
 
             // Check if no view has focus: https://stackoverflow.com/questions/1109022/how-to-close-hide-the-android-soft-keyboard-programmatically
@@ -88,6 +60,7 @@ public class Settings extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
             }
+//            String username = mUsernameEditText.getText().toString();
         });
 
         mUsernameEditText.addTextChangedListener(new TextWatcher() {
@@ -117,13 +90,16 @@ public class Settings extends AppCompatActivity {
     }
 
     private void saveUsername() {
+
         String username = mUsernameEditText.getText().toString();
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor preferenceEditor = sharedPreferences.edit();
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("username",username);
+        editor.apply();
 
-        preferenceEditor.putString(USERNAME, username);
-        preferenceEditor.apply();
+        Intent intent=new Intent(Settings.this,MainActivity.class);
+        startActivity(intent);
+        finish();
 
         Toast.makeText(this, "Username Saved", Toast.LENGTH_SHORT).show();
     }
@@ -171,6 +147,7 @@ public class Settings extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void navigateToMain() {
         Intent settingsIntent = new Intent(this, MainActivity.class);
         startActivity(settingsIntent);

@@ -1,13 +1,13 @@
 package com.example.taskmaster;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,24 +16,44 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.taskmaster.Recyclerview.ViewAdapter;
+import com.example.taskmaster.Recyclerview.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private Button button, button1, button2;
+    private Button button, button1, button2, button0;
     private TextView mUsernameText;
+    RecyclerView rrecyclerview;
+    List<Task> Tasklist = new ArrayList<>();
+    ViewAdapter myadapter;
+    SharedPreferences sharedpreferencesmain;
 
 //    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // this is a good place to do initial
-        // set up like click listeners etc
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btnSubmit = findViewById(R.id.btn_submit);
-        mUsernameText = findViewById(R.id.Write_your_username);
+
+
+        mUsernameText = (TextView) findViewById(R.id.username);
+        sharedpreferencesmain = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
+        String usernamemain = sharedpreferencesmain.getString("username", "");
+        mUsernameText.setText(usernamemain);
+        rrecyclerview = findViewById(R.id.rere);
+        rrecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        myadapter = new ViewAdapter(MainActivity.this, Tasklist);
+//        Tasklist = new ArrayList<>();
+        SetAdapter();
+        AddTakInfo();
 
         Log.i(TAG, "onCreate: Called");
+
 
         button = (Button) findViewById(R.id.ADDTASK);
         button.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +100,44 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(Task2);
             }
         });
+
+
+
     }
+
+    private void AddTakInfo() {
+        Task taskel=new Task("1", "Task 26 ", "complete");
+        Tasklist.add(taskel);
+        Task taskel1=new Task("2", "Task 27 ", "complete");
+        Tasklist.add(taskel1);
+//        Tasklist.add(new Task("2", "Task 27 ", "in progress"));
+
+// assigned
+// in progress
+// complete
+    }
+
+    private void SetAdapter() {
+        ViewAdapter adapter = new ViewAdapter(Tasklist);
+//        adapter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent Task1 = new Intent(MainActivity.this, Task_Detail.class);
+//                Task1.putExtra("title", Task.title);
+//                Task1.putExtra("body", Task.body);
+//                Task1.putExtra("state", Task.state);
+//
+//                startActivity(Task1);
+//            }
+//        });
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rrecyclerview.setLayoutManager(layoutManager);
+        rrecyclerview.setItemAnimator(new DefaultItemAnimator());
+        rrecyclerview.setAdapter(adapter);
+
+    }
+
+
 
     public void openActivity1() {
         Intent intent = new Intent(this, AllTasks.class);
@@ -149,14 +206,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setUsername() {
-        // get text out of shared preference
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // set text on text view address widget
-        mUsernameText.setText(sharedPreferences.getString(Settings.USERNAME, "No Username Set"));
-    }
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -172,15 +221,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Log.i(TAG, "onResume: called - The App is VISIBLE");
-
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause: called");
-        setUsername();
-        getusername();
+        System.out.println(Tasklist);
+
         super.onPause();
 
     }

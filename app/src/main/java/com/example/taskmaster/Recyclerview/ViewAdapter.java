@@ -1,5 +1,6 @@
 package com.example.taskmaster.Recyclerview;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
 
 
     public void onBindViewHolder(@NonNull ViewAdapter.MyViewHolder holder, int position) {
-
+        Log.d("position", "onBindViewHolder: ..."+Taskslist.get(position));
         holder.Title.setText(Taskslist.get(position).getTitle());
         holder.Body.setText(Taskslist.get(position).getBody());
         holder.State.setText(Taskslist.get(position).getState());

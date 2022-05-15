@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button, button1, button2, button0;
     private TextView mUsernameText;
     RecyclerView rrecyclerview;
-    List<Task> Tasklist = new ArrayList<>();
+    List<Task> Tasklist ;
     ViewAdapter myadapter;
     SharedPreferences sharedpreferencesmain;
 
@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         rrecyclerview.setLayoutManager(new LinearLayoutManager(this));
         myadapter = new ViewAdapter(MainActivity.this, Tasklist);
 //        Tasklist = new ArrayList<>();
-        SetAdapter();
         AddTakInfo();
+
+        SetAdapter();
 
         Log.i(TAG, "onCreate: Called");
 
@@ -106,10 +107,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void AddTakInfo() {
+        Tasklist=new ArrayList<>();
         Task taskel=new Task("1", "Task 26 ", "complete");
         Tasklist.add(taskel);
         Task taskel1=new Task("2", "Task 27 ", "complete");
         Tasklist.add(taskel1);
+        Tasklist.add(new Task("3", "Task 28 ", "complete"));
+        Log.d(TAG, "AddTakInfo: "+Tasklist);
+//        Tasklist.add(new Task())
 //        Tasklist.add(new Task("2", "Task 27 ", "in progress"));
 
 // assigned
@@ -119,17 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void SetAdapter() {
         ViewAdapter adapter = new ViewAdapter(Tasklist);
-//        adapter.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent Task1 = new Intent(MainActivity.this, Task_Detail.class);
-//                Task1.putExtra("title", Task.title);
-//                Task1.putExtra("body", Task.body);
-//                Task1.putExtra("state", Task.state);
-//
-//                startActivity(Task1);
-//            }
-//        });
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rrecyclerview.setLayoutManager(layoutManager);
         rrecyclerview.setItemAnimator(new DefaultItemAnimator());

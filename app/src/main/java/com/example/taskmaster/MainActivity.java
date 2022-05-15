@@ -82,25 +82,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button Task1 = findViewById(R.id.Task1);
-        Task1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Task1 = new Intent(MainActivity.this, Task_Detail.class);
-                Task1.putExtra("title", "Task 1");
-                startActivity(Task1);
-            }
-        });
+//        Button Task1 = findViewById(R.id.Task1);
+//        Task1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent Task1 = new Intent(MainActivity.this, Task_Detail.class);
+//                Task1.putExtra("title", "Task 1");
+//                startActivity(Task1);
+//            }
+//        });
 
-        Button Task2 = findViewById(R.id.Task2);
-        Task2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent Task2 = new Intent(MainActivity.this, Task_Detail.class);
-                Task2.putExtra("title", "Task 2");
-                startActivity(Task2);
-            }
-        });
+//        Button Task2 = findViewById(R.id.Task2);
+//        Task2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent Task2 = new Intent(MainActivity.this, Task_Detail.class);
+//                Task2.putExtra("title", "Task 2");
+//                startActivity(Task2);
+//            }
+//        });
 
 
 
@@ -123,12 +123,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SetAdapter() {
-        ViewAdapter adapter = new ViewAdapter(Tasklist);
+        ViewAdapter RecyclerView = new ViewAdapter(Tasklist, new ViewAdapter.MyOnClickListener() {
+            @Override
+            public void onClicked(Task task) {
+//                Log.d(TAG, "onClicked: "+task.getId());
+                Intent taskDetailActivity = new Intent(getApplicationContext(), Task_Detail.class);
+//                Toast.makeText(MainActivity.this, "000" , Toast.LENGTH_SHORT).show();
+                taskDetailActivity.putExtra("title", task.title);
+                taskDetailActivity.putExtra("body", task.body);
+                taskDetailActivity.putExtra("state", task.state);
 
+                startActivity(taskDetailActivity);
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rrecyclerview.setLayoutManager(layoutManager);
         rrecyclerview.setItemAnimator(new DefaultItemAnimator());
-        rrecyclerview.setAdapter(adapter);
+        rrecyclerview.setAdapter(RecyclerView);
 
     }
 

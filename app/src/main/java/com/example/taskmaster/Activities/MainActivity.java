@@ -1,4 +1,4 @@
-package com.example.taskmaster;
+package com.example.taskmaster.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.taskmaster.DB.AppDB;
+import com.example.taskmaster.R;
 import com.example.taskmaster.Recyclerview.ViewAdapter;
 import com.example.taskmaster.Recyclerview.Task;
+
 
 import java.util.List;
 
@@ -34,8 +36,20 @@ public class MainActivity extends AppCompatActivity {
     List<Task> TasklistDB;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//
+//        try {
+//            Amplify.addPlugin(new AWSDataStorePlugin());
+//            Amplify.configure(getApplicationContext());
+//
+//            Log.i("Tutorial", "Initialized Amplify");
+//        } catch (AmplifyException e) {
+//            Log.e("Tutorial", "Could not initialize Amplify", e);
+//        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.ADDTASK);

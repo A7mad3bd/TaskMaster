@@ -1,4 +1,4 @@
-package com.example.taskmaster;
+package com.example.taskmaster.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.taskmaster.DB.AppDB;
+import com.example.taskmaster.R;
 import com.example.taskmaster.Recyclerview.Task;
 import com.example.taskmaster.Recyclerview.ViewAdapter;
 

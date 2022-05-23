@@ -7,8 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.core.Amplify;
 import com.example.taskmaster.R;
 import java.util.List;
+
+
+
 
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> {
 
@@ -78,3 +84,4 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
     }
 
 }
+

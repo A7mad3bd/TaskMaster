@@ -29,13 +29,10 @@ import android.util.Log;
 
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
-import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
-import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
-//import com.amplifyframework.datastore.generated.model.Task;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -47,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button, button1, button2, button3, button4;
     private TextView mUsernameText;
-    RecyclerView rrecyclerview;
-    List<Task> Tasklist;
+    //    List<Task> Tasklist;
     ViewAdapter myadapter;
     SharedPreferences sharedpreferencesmain;
-    List<Task> TasklistDB;
+    List<com.amplifyframework.datastore.generated.model.Task> TasklistDB = new ArrayList<>();
 
 
     @Override
@@ -59,37 +55,40 @@ public class MainActivity extends AppCompatActivity {
 
         configureAmplify();
 
-//        Task item = Task.builder()
-//                .title("Build Amazing Mobile Apps")
-//                .description("Build it using Java, Spring and Amplify")
-//                .build();
-
-        //        // Data store save
-//        Amplify.DataStore.save(item,
-//                success -> Log.i(TAG, "Saved item: " + success.item().getTitle()),
-//                error -> Log.e(TAG, "Could not save item to DataStore", error)
-//        );
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.ADDTASK);
         mUsernameText = (TextView) findViewById(R.id.username);
-        rrecyclerview = findViewById(R.id.rere);
         button1 = (Button) findViewById(R.id.AllTasks);
         button2 = (Button) findViewById(R.id.Settings);
-        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
+//        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
 
 
         SetUserName();
-        AddTakInfo();
+//        AddTakInfo();
         SetAdapter();
         OnclistButtons();
 
 
-
-
-
         Log.i(TAG, "onCreate: Called");
+    }
+
+    private void fetch() {
+        Amplify.API.query(ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class), res ->
+                {
+                    TasklistDB.clear();
+                    if (res.hasData()) {
+                        for (com.amplifyframework.datastore.generated.model.Task task : res.getData()) {
+                            TasklistDB.add(task);
+                        }
+                    }
+                    runOnUiThread(() -> {
+                        myadapter.notifyDataSetChanged();
+                    });
+                }
+                , err -> {
+                });
     }
 
 
@@ -156,31 +155,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void AddTakInfo() {
 
-        TasklistDB.add(new Task("one", "Task 26 ", "complete"));
-        TasklistDB.add(new Task("two", "Task 27 ", "complete"));
-        TasklistDB.add(new Task("3", "Task 28 ", "in progress"));
-        TasklistDB.add(new Task("4", "Task 29 ", "in progress"));
+//        TasklistDB.add(new Task("one", "Task 26 ", "complete"));
+//        TasklistDB.add(new Task("two", "Task 27 ", "complete"));
+//        TasklistDB.add(new Task("3", "Task 28 ", "in progress"));
+//        TasklistDB.add(new Task("4", "Task 29 ", "in progress"));
 
     }
 
     private void SetAdapter() {
-
-
-        ViewAdapter customRecyclerView = new ViewAdapter(TasklistDB, new ViewAdapter.MyOnClickListener() {
+        RecyclerView rrecyclerview=findViewById(R.id.rere);;
+        myadapter = new ViewAdapter(TasklistDB, new ViewAdapter.MyOnClickListener() {
             @Override
-            public void onClicked(Task task) {
+
+            public void onClicked(com.amplifyframework.datastore.generated.model.Task task) {
 //                Log.d(TAG, "onClicked: "+task.getId());
                 Intent taskDetailActivity = new Intent(getApplicationContext(), Task_Detail.class);
 //                Toast.makeText(MainActivity.this, "000" , Toast.LENGTH_SHORT).show();
-                taskDetailActivity.putExtra("title", task.title);
-                taskDetailActivity.putExtra("body", task.body);
-                taskDetailActivity.putExtra("state", task.state);
+                taskDetailActivity.putExtra("title", task.getTitle());
+                taskDetailActivity.putExtra("body", task.getDescription());
+                taskDetailActivity.putExtra("state", task.getStatus());
 
                 startActivity(taskDetailActivity);
             }
         });
 
-        rrecyclerview.setAdapter(customRecyclerView);
+        rrecyclerview.setAdapter(myadapter);
         rrecyclerview.setHasFixedSize(true);
         rrecyclerview.setLayoutManager(new
                 LinearLayoutManager(this));
@@ -270,8 +269,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         Log.i(TAG, "onResume: called - The App is VISIBLE");
+        fetch();
 
-        super.onResume();
         super.onResume();
     }
 
@@ -300,62 +299,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        configureAmplify();
-//
-//        Task item = Task.builder()
-//                .title("Build Amazing Mobile Apps")
-//                .description("Build it using Java, Spring and Amplify")
-//                .build();
-//
-//        // Data store save
-//        Amplify.DataStore.save(item,
-//                success -> Log.i(TAG, "Saved item: " + success.item().getTitle()),
-//                error -> Log.e(TAG, "Could not save item to DataStore", error)
-//        );
-//
-//        // Data store query
-////        Amplify.DataStore.query(Task.class,
-////                tasks -> {
-////                    while (tasks.hasNext()) {
-////                        Task task = tasks.next();
-////
-////                        Log.i(TAG, "==== Task ====");
-////                        Log.i(TAG, "Name: " + task.getTitle());
-////                    }
-////                },
-////                failure -> Log.e(TAG, "Could not query DataStore", failure)
-////        );
-//
-//        // API save to backend
-////        Amplify.API.mutate(
-////                ModelMutation.create(item),
-////                success -> Log.i(TAG, "Saved item: " + success.getData().getTitle()),
-////                error -> Log.e(TAG, "Could not save item to API", error)
-////        );
-//
-//        // API query
-////        Amplify.API.query(
-////                ModelQuery.list(Task.class, Task.TITLE.contains("Build")),
-////                response -> {
-////                    for (Task task : response.getData()) {
-////                        Log.i(TAG, "------------------> " + task.getTitle());
-////                    }
-////                },
-////                error -> Log.e(TAG, "Query failure", error)
-////        );
-//
-//        // Datastore and API sync
-//        Amplify.DataStore.observe(Task.class,
-//                started -> {
-//                    Log.i(TAG, "Observation began.");
-//                    // Manipulate your views
-//
-//                    // call handler
-//                },
-//                change -> Log.i(TAG, change.item().toString()),
-//                failure -> Log.e(TAG, "Observation failed.", failure),
-//                () -> Log.i(TAG, "Observation complete.")
-//        );
-//
-//    }
-//

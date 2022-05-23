@@ -19,29 +19,29 @@ import java.util.List;
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> {
 
     Context context;
-    List<Task> Taskslist;
+    List<com.amplifyframework.datastore.generated.model.Task> Taskslist;
     MyOnClickListener listener;
 
-    public ViewAdapter(Context context, List<Task> tasklist, MyOnClickListener myOnClickListener) {
+    public ViewAdapter(Context context, List<com.amplifyframework.datastore.generated.model.Task> tasklist, MyOnClickListener myOnClickListener) {
         this.context = context;
         this.Taskslist = Taskslist;
         this.listener = listener;
     }
 
     public interface MyOnClickListener {
-        void onClicked(Task task);
+        void onClicked(com.amplifyframework.datastore.generated.model.Task task);
     }
-    public ViewAdapter(List<Task> Taskslist, MyOnClickListener listener) {
+    public ViewAdapter(List<com.amplifyframework.datastore.generated.model.Task> Taskslist, MyOnClickListener listener) {
         this.Taskslist = Taskslist;
         this.listener = listener;
     }
 
-    public ViewAdapter(Context context, List<Task> Taskslist) {
+    public ViewAdapter(Context context, List<com.amplifyframework.datastore.generated.model.Task> Taskslist) {
         this.context = context;
         this.Taskslist = Taskslist;
     }
 
-    public ViewAdapter(List<Task> tasklist) {
+    public ViewAdapter(List<com.amplifyframework.datastore.generated.model.Task> tasklist) {
         this.Taskslist = tasklist;
     }
     @NonNull
@@ -56,8 +56,8 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull ViewAdapter.MyViewHolder holder, int position) {
         Log.d("position", "onBindViewHolder: ..."+Taskslist.get(position));
         holder.Title.setText(Taskslist.get(position).getTitle());
-        holder.Body.setText(Taskslist.get(position).getBody());
-        holder.State.setText(Taskslist.get(position).getState());
+        holder.Body.setText(Taskslist.get(position).getDescription());
+        holder.State.setText(Taskslist.get(position).getStatus());
         holder.itemView.setOnClickListener(view ->
         {
             listener.onClicked(Taskslist.get(position));
@@ -66,7 +66,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
-        return Taskslist.size();
+        return Taskslist.size() ;
     }
 
 

@@ -13,9 +13,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
 import com.example.taskmaster.DB.AppDB;
 import com.example.taskmaster.R;
 import com.example.taskmaster.Recyclerview.Task;
+
 
 import java.util.List;
 
@@ -23,16 +26,16 @@ public class AddingTask extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        List<Task> TasklistDB;
+//        List<Task> TasklistDB;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_task);
         Button addTask = findViewById(R.id.ADDTASKA);
-        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
+//        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
 
         addTask.setOnClickListener(v -> {
 
-        Toast.makeText(this, "submitted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "submitted", Toast.LENGTH_SHORT).show();
         });
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,17 +50,28 @@ public class AddingTask extends AppCompatActivity {
                 Spinner Task_Stast = findViewById(R.id.TaskStatee);
                 String TaskStast = Task_Stast.getSelectedItem().toString();
 
-                Task task = new Task(Taskname,Taskbody,TaskStast);
+                Task task = new Task(Taskname, Taskbody, TaskStast);
 
                 Long newTaskId = AppDB.getInstance(getApplicationContext()).taskDao().insertTask(task);
-                TasklistDB.add(task);
+
+                com.amplifyframework.datastore.generated.model.Task item = com.amplifyframework.datastore.generated.model.Task
+                        .builder()
+                        .title(Taskname)
+                        .description(Taskbody)
+                        .status(TaskStast).build();
+                Amplify.API.query(ModelMutation.create(item),
+                        res -> {
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        }
+                        , err -> {
+                        });
+//                TasklistDB.add(task);
 //                System.out.println("******************** Task ID = " + newTaskId + " ************************");
-                startActivity(new Intent(getApplicationContext() , MainActivity.class));
 
             }
         });
     }
-
 
 
     @Override
@@ -103,6 +117,7 @@ public class AddingTask extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void navigateToMain() {
         Intent settingsIntent = new Intent(this, MainActivity.class);
         startActivity(settingsIntent);

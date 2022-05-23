@@ -21,3 +21,14 @@
 - Task model and DAO 
 - Add Task page -> add sppiner and active adding task to db
 - Task details page ->  title for the page and a body and state from the db
+# Lab 31
+![Lab 31](screenshots/lab31.jpg)
+- create more tests
+
+# Lab 32
+![Lab 32](screenshots/lab32.jpg)
+- Aws Amplify
+
+
+# Lab 34
+- Create Signed (Released) Apk (app-release.apk)

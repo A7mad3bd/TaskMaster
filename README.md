@@ -26,7 +26,7 @@
 - create more tests
 
 # Lab 32
-![Lab 32](screenshots/lab32.jpg)
+![Lab 32](screenshots/Amplify.jpg)
 - Aws Amplify
 
 

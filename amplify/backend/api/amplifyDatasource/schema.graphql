@@ -12,17 +12,3 @@ type Note @model {
   content: String!
 }
 
-type User @model
-{
-regnum: ID!
-name : String!
-  age: Int
-number: String
-}
-
-type Task @model {
-  id: ID!
-  title: String
-  body:String
-  state:String
-}

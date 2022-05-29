@@ -69,9 +69,15 @@ public class MainActivity extends AppCompatActivity {
 //        AddTakInfo();
         SetAdapter();
         OnclistButtons();
+//        SendCountTasks();
 
 
         Log.i(TAG, "onCreate: Called");
+    }
+
+    private void SendCountTasks() {
+        Intent Total = new Intent(getApplicationContext(), AddingTask.class);
+        Total.putExtra("TotalTasks", TasklistDB.size());
     }
 
     private void fetch() {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.SensorDirectChannel;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.taskmaster.DB.AppDB;
 import com.example.taskmaster.Recyclerview.ViewAdapter;
 import com.example.taskmaster.Recyclerview.Task;
+
 
 import java.util.List;
 
@@ -34,8 +36,20 @@ public class MainActivity extends AppCompatActivity {
     List<Task> TasklistDB;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//
+//        try {
+//            Amplify.addPlugin(new AWSDataStorePlugin());
+//            Amplify.configure(getApplicationContext());
+//
+//            Log.i("Tutorial", "Initialized Amplify");
+//        } catch (AmplifyException e) {
+//            Log.e("Tutorial", "Could not initialize Amplify", e);
+//        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.ADDTASK);

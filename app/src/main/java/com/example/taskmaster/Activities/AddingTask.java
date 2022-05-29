@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
@@ -20,19 +22,28 @@ import com.example.taskmaster.R;
 import com.example.taskmaster.Recyclerview.Task;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddingTask extends AppCompatActivity {
+    SharedPreferences sharedpreferencesaddtask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        List<Task> TasklistDB;
+        List<com.amplifyframework.datastore.generated.model.Task> TasklistDB = new ArrayList<>();
 
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_adding_task);
         Button addTask = findViewById(R.id.ADDTASKA);
 //        TasklistDB = AppDB.getInstance(this).taskDao().getAll();
+        TextView TotalTasks = (TextView) findViewById(R.id.TotalTasksText1);
+        String s = String.valueOf(TasklistDB.size());
+        TotalTasks.setText(s);
 
+        TotalTasks.setText("3");
         addTask.setOnClickListener(v -> {
 
             Toast.makeText(this, "submitted", Toast.LENGTH_SHORT).show();
@@ -71,6 +82,7 @@ public class AddingTask extends AppCompatActivity {
 
             }
         });
+
     }
 
 

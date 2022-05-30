@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
+
 import com.amplifyframework.core.Amplify;
 import com.example.taskmaster.DB.AppDB;
 import com.example.taskmaster.R;
@@ -26,7 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddingTask extends AppCompatActivity {
-    SharedPreferences sharedpreferencesaddtask;
+
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,6 @@ public class AddingTask extends AppCompatActivity {
         List<com.amplifyframework.datastore.generated.model.Task> TasklistDB = new ArrayList<>();
 
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_adding_task);
         Button addTask = findViewById(R.id.ADDTASKA);
@@ -84,6 +88,7 @@ public class AddingTask extends AppCompatActivity {
         });
 
     }
+
 
 
     @Override

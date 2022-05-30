@@ -11,4 +11,8 @@ type Note @model {
   id: ID!
   content: String!
 }
-
+#type Team @model {
+#  id: ID! @primaryKey
+#  name: String
+#  tasks: [Task] @hasMany
+#}

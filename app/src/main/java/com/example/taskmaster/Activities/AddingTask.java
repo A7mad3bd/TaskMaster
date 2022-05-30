@@ -139,4 +139,99 @@ public class AddingTask extends AppCompatActivity {
         Intent settingsIntent = new Intent(this, MainActivity.class);
         startActivity(settingsIntent);
     }
+//    private void fileUpload() {
+//        File exampleFile = new File(getApplicationContext().getFilesDir(), "ExampleKey");
+//
+//        // creates a file on the device
+//        try {
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(exampleFile));
+//            writer.append("Example file contents");
+//            writer.close();
+//        } catch (Exception exception) {
+//            Log.e(TAG, "Upload failed", exception);
+//        }
+//
+//        // uploads the file
+//        Amplify.Storage.uploadFile(
+//                "ExampleKey",
+//                exampleFile,
+//                result -> Log.i(TAG, "Successfully uploaded: " + result.getKey()),
+//                storageFailure -> Log.e(TAG, "Upload failed", storageFailure)
+//        );
+//    }
+//
+//    private void pictureUpload() {
+//        // Launches photo picker in single-select mode.
+//        // This means that the user can select one photo or video.
+//        Intent intent = new Intent(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//
+//        startActivityForResult(intent, REQUEST_CODE);
+//    }
+//
+//    private void pictureDownload() {
+//        Amplify.Storage.downloadFile(
+//                "image.jpg",
+//                new File(getApplicationContext().getFilesDir() + "/download.jpg"),
+//                result -> {
+//                    Log.i(TAG, "The root path is: " + getApplicationContext().getFilesDir());
+//                    Log.i(TAG, "Successfully downloaded: " + result.getFile().getName());
+//                },
+//                error -> Log.e(TAG,  "Download Failure", error)
+//        );
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (resultCode != Activity.RESULT_OK) {
+//            // Handle error
+//            Log.e(TAG, "onActivityResult: Error getting image from device");
+//            return;
+//        }
+//
+//        switch(requestCode) {
+//            case REQUEST_CODE:
+//                // Get photo picker response for single select.
+//                Uri currentUri = data.getData();
+//
+//                // Do stuff with the photo/video URI.
+//                Log.i(TAG, "onActivityResult: the uri is => " + currentUri);
+//
+//                try {
+//                    Bitmap bitmap = getBitmapFromUri(currentUri);
+//
+//                    File file = new File(getApplicationContext().getFilesDir(), "image.jpg");
+//                    OutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+//                    os.close();
+//
+//                    // upload to s3
+//                    // uploads the file
+//                    Amplify.Storage.uploadFile(
+//                            "image.jpg",
+//                            file,
+//                            result -> Log.i(TAG, "Successfully uploaded: " + result.getKey()),
+//                            storageFailure -> Log.e(TAG, "Upload failed", storageFailure)
+//                    );
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                return;
+//        }
+//    }
+//
+//    /*
+//        https://stackoverflow.com/questions/2169649/get-pick-an-image-from-androids-built-in-gallery-app-programmatically
+//         */
+//    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+//        ParcelFileDescriptor parcelFileDescriptor =
+//                getContentResolver().openFileDescriptor(uri, "r");
+//        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+//        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+//        parcelFileDescriptor.close();
+//
+//        return image;
+//    }
 }

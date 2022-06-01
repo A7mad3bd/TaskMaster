@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings">
+    tools:context=".taskmaster.Activities.Settings">
 
 
-    <com.google.android.material.textfield.TextInputEditText
+    <EditText
         android:id="@+id/Write_your_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_marginTop="267dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
-        android:hint="@string/Write_your_username"
+
         android:inputType="textPostalAddress"
         app:layout_constraintBottom_toTopOf="@+id/btn_submit"
         app:layout_constraintEnd_toEndOf="parent"

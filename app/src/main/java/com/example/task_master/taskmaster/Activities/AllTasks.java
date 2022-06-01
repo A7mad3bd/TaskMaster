@@ -1,4 +1,4 @@
-package com.example.taskmaster;
+package com.example.task_master.taskmaster.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
+import com.example.task_master.R;
+
+
 
 public class AllTasks extends AppCompatActivity {
 

@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Task Master"
+rootProject.name = "Task-Master"
 include ':app'

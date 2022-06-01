@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.taskmaster">
+    package="com.example.task_master">
 
     <application
         android:allowBackup="true"
@@ -10,22 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskMaster">
         <activity
-            android:name=".Task_Detail"
-            android:exported="false" />
+        android:name=".taskmaster.Activities.AddingTask"
+        android:exported="false" />
         <activity
-            android:name=".Settings"
-            android:exported="false" />
+        android:name=".taskmaster.Activities.Settings"
+        android:exported="false" />
         <activity
-            android:name=".AllTasks"
-            android:exported="false" />
+        android:name=".taskmaster.Activities.AllTasks"
+        android:exported="false" />
         <activity
-            android:name=".AddingTask"
-            android:exported="false"
-            />
+        android:name=".taskmaster.Activities.Task_Detail"
+        android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".taskmaster.Activities.MainActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".taskmaster.Activities.MainActivity">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
